@@ -126,7 +126,7 @@ Only these emails can access admin:
 ```javascript
 masud.dev01@gmail.com
 mr3377006@gmail.com
-masudranamdra@gmail.com
+mdmasudranamdra@gmail.com
 ```
 
 To add more admins:

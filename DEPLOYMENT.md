@@ -98,7 +98,7 @@ MONGODB_DB=portfolio
 PORT=5000
 NODE_ENV=development
 CLIENT_URL=http://localhost:3000
-ADMIN_EMAILS=masud.dev01@gmail.com,mr3377006@gmail.com,masudranamdra@gmail.com
+ADMIN_EMAILS=masud.dev01@gmail.com,mr3377006@gmail.com,mdmasudranamdra@gmail.com
 ```
 
 ---
