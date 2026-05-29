@@ -2,6 +2,9 @@ import { NextRequest } from 'next/server';
 import { deleteResource, getResource, updateResource } from '../../../../lib/content-api';
 import type { ResourceName } from '../../../../types/content';
 
+// Force dynamic route to prevent static analysis during build
+export const dynamic = 'force-dynamic';
+
 const resources = ['projects', 'blogs', 'skills', 'testimonials', 'activities', 'articles', 'messages', 'documents', 'config'];
 
 const validResource = (resource: string): resource is ResourceName => resources.includes(resource);

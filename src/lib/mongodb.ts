@@ -2,10 +2,6 @@ import { MongoClient } from 'mongodb';
 
 const uri = process.env.MONGODB_URI || process.env.MONGO_URI;
 
-if (!uri) {
-  throw new Error('Missing MONGODB_URI environment variable');
-}
-
 const options = {};
 
 declare global {
@@ -13,18 +9,28 @@ declare global {
   var mongoClientPromise: Promise<MongoClient> | undefined;
 }
 
-const client = new MongoClient(uri, options);
+let client: MongoClient | null = null;
+let clientPromise: Promise<MongoClient>;
 
-export const clientPromise =
-  global.mongoClientPromise || client.connect();
-
-if (process.env.NODE_ENV !== 'production') {
-  global.mongoClientPromise = clientPromise;
+if (uri) {
+  client = new MongoClient(uri, options);
+  clientPromise = global.mongoClientPromise || client.connect();
+  if (process.env.NODE_ENV !== 'production') {
+    global.mongoClientPromise = clientPromise;
+  }
+} else {
+  // Create a promise that will fail at runtime when accessed, not at build time
+  clientPromise = Promise.reject(new Error('Missing MONGODB_URI environment variable'));
 }
+
+export { clientPromise };
 
 let indexesCreated = false;
 
 export const getDb = async () => {
+  if (!uri) {
+    throw new Error('Missing MONGODB_URI environment variable');
+  }
   const mongoClient = await clientPromise;
   const db = mongoClient.db(process.env.MONGODB_DB || process.env.DB_NAME);
   if (!indexesCreated) {

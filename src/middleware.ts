@@ -4,7 +4,8 @@ import { getSessionCookie } from 'better-auth/cookies';
 const protectedPaths = ['/dashboard', '/gallery/images', '/gallery/videos'];
 const adminPaths = ['/admin'];
 
-export function middleware(request: NextRequest) {
+// Middleware runs at runtime, not build time, so this is safe
+export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const hasSession = !!getSessionCookie(request);
 

@@ -1,6 +1,9 @@
 import { NextRequest } from 'next/server';
 import { deleteResource, updateResource } from '../../../../../lib/content-api';
 
+// Force dynamic route to prevent static analysis during build
+export const dynamic = 'force-dynamic';
+
 const validKind = (kind: string): kind is 'images' | 'videos' => kind === 'images' || kind === 'videos';
 
 export async function PUT(request: NextRequest, { params }: { params: Promise<{ kind: string; id: string }> }) {

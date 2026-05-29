@@ -4,6 +4,8 @@ import { z } from 'zod';
 import { getDb } from '../../../lib/mongodb';
 import { listResource } from '../../../lib/content-api';
 
+// Force dynamic route to prevent static analysis during build
+export const dynamic = 'force-dynamic';
 
 // Input Zod Validation Schema
 const contactSchema = z.object({
